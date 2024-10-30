@@ -15,7 +15,8 @@ HINT: Use * to multiply two numbers, and feel free to use multiple
 console.log statements. Test your function when you're done!
 */
 function logTrip(tripName, tripLen, costPerDay){
-
+    let totalCost = tripLen * costPerDay
+    console.log(tripName + ": $" + totalCost)
 }
 
 /* Uncomment the line below to call the function. */
@@ -38,7 +39,8 @@ let tripObject = {
 
 /* EDIT TRIPOBJECT HERE: */
 
-
+tripObject.costPerDay = 650
+tripObject.tripLen = 3
 
 ///////////////////////////
 
@@ -55,17 +57,27 @@ const tripObject1 = {
     name: "Christmas in Korea",
     tripLen: 4,
     costPerDay: 237,
-    numTravellers: 3,
+    numTravelers: 3,
 }
 
 const tripObject2 = {
     name: "Christmas in Taiwan",
     tripLen: 5,
     costPerDay: 367,
-    numTravellers: 6,
+    numTravelers: 6,
 }
 /* MAKE YOUR FUNCTION HERE */
 
+const cheaperTrip = (tripObject1, tripObject2) => {
+    let tripOnePrice = (tripObject1.costPerDay * tripObject1.tripLen) / tripObject2.numTravelers;
+    let tripTwoPrice = (tripObject2.costPerDay * tripObject2.tripLen) / tripObject2.numTravelers;
+
+    if (tripOnePrice <= tripTwoPrice) {
+        return tripObject1
+    } else {
+        return tripObject2
+    }
+}
 
 ///////////////////////////
 
@@ -96,6 +108,15 @@ const destinations = [
 
 /* MAKE YOUR FUNCTION HERE */
 
+const isTripIncluded = (destinationsList, targetDestination) => {
+    let i = 0
+    for (destination of destinationsList) {
+        if (destination === targetDestination) {
+            return true
+        }
+    }
+    return false
+}
 
 ///////////////////////////
 
@@ -103,7 +124,7 @@ const destinations = [
     Uncomment the below line to test out your function.
     Feel free to test whatever target destination you'd like.
 */
-// console.log(isTripIncluded(destinations, ""));
+// console.log(isTripIncluded(destinations, "San Diego"));
 
 
 /*
@@ -141,8 +162,15 @@ and handles success and errors using .then/catch.
 */ 
 
 // YOUR CODE HERE
+const fetchExchangeRate = async(currency1, currency2) => {
+    await getExchangeRate(currency1, currency2).then((response) => {
+        console.log(response)
+    }).catch((e) => {
+        console.error(e)
+    })
+}
 
 // Example calls:
 // fetchExchangeRate('USD', 'EUR')
-// fetchExchangeRate('USD', 'GBP')  // This should trigger an error
+fetchExchangeRate('USD', 'GBP')  // This should trigger an error
 
