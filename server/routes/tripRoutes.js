@@ -7,6 +7,6 @@ const activityController = require('../controllers/activityController');
 // Add API routes here
 router.get('/trip', tripController.getTrip);
 router.get('/name', tripController.getTripName);
-
+router.post('/activity', tripController.postActivity)
 
 module.exports = router;

@@ -1,16 +1,23 @@
-// import dotenv
-const dotenv = require('dotenv');
+const express = require ('express');
+const cors = require('cors');
+const config = require('./config/server');
+const router = require('./routes/tripRoutes')
+const mongoose = require('mongoose');
 
 
-dotenv.config();
+// Create an Express server
+const server = express();
 
-// create a config object with PORT 
-const config = {
-    PORT: process.env.PORT,
-}
+server.use(cors());
+server.use(express.json());
 
+// Mount /api onto our server
+server.use('/api', router);
 
+mongoose.connect(config.DB_URL)
+.then (() => console. log('Connected to MongoDB'))
+.catch ((err) => console.error ('Error connecting to MongoDB: ', err));
 
-
-
-module.exports = config;
+server.listen(config.PORT, () => {
+    console.log("Server started on PORT " + config.PORT);
+});
